@@ -29,7 +29,6 @@
 }
 
 .ui3-alert .ui3-alert-button-confirm{
-    border: 1px solid #FF8447;
     background: #fff;
     color: #ff8447;
 }
@@ -37,4 +36,9 @@
 .ui3-alert .ui3-alert-button-confirm:hover{
     background: #ef5921;
     color: #fff;
-};
+}
+
+.ui3-alert-hast .ui3-dialog-content{
+    padding-top: 42px;
+    padding-bottom: 40px;
+}

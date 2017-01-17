@@ -28,6 +28,10 @@ function override(callback){
 function alert(content, options, callback, manualClose){
     options.className = 'ui3-alert ' + (options.className || '');
 
+    if(options.title){
+        options.className += ' ui3-alert-hast';
+    }
+
     return new Dialog($.extend({
         content: '<i class="ui3-alert-icon"></i>' + content + (options.extra ? '<p class="ui3-alert-extra">' + options.extra + '</p>' : ''),
         width: 400,
