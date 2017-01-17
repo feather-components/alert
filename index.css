@@ -1,0 +1,10 @@
+.ui3-alert .ui3-dialog-content{
+    font-size: 18px;
+    text-align: center;
+    color: #666;
+}
+
+.ui3-alert .ui3-alert-extra{
+    font-size: 14px;
+    line-height: 25px;
+}
