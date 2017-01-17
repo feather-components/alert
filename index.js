@@ -11,19 +11,25 @@ if(typeof define == 'function' && define.amd){
     window.jQuery.alert = factory(window.jQuery, window.jQuery.fn.dialog);
 }
 })(function($, Dialog){
-var Alert = function(content, callback, manualClose, o){
-    var options;
+function override(callback){
+    return function(){
+        var args = Array.prototype.slice.call(arguments);
 
-    if(typeof callback == 'object'){
-        options = callback;
-        callback = manualClose;
-        unclose = o;
-    }else{
-        options = {};
-    }
+        if(typeof args[1] != 'object'){
+            args.splice(1, 0, {});
+        }else if(!args[1]){
+            args[1] = {};
+        }
+
+        return callback.apply(window, args);
+    };
+}
+
+function alert(content, options, callback, manualClose){
+    options.className = 'ui3-alert ' + (options.className || '');
 
     return new Dialog($.extend({
-        content: content + (options.extra ? '<p class="ui3-alert-extra">' + options.extra + '</p>' : ''),
+        content: '<i class="ui3-alert-icon"></i>' + content + (options.extra ? '<p class="ui3-alert-extra">' + options.extra + '</p>' : ''),
         width: 400,
         autoOpen: true,
         className: 'ui3-alert',
@@ -33,68 +39,45 @@ var Alert = function(content, callback, manualClose, o){
                 !manualClose && this.destroy();
             }
         }
-    }, options || {}));
-};
+    }, options));
+}
 
+var Alert = override(alert);
+
+$.each(['error', 'success'], function(i, type){
+    Alert[type] = override(function(content, options, callback, manualClose){
+        options.className = 'ui3-alert-' + type;
+        return alert(content, options, callback, manualClose);
+    });
+});
+
+Alert.confirm = override(function(content, options, callback, manualClose){
+    options.className = 'ui3-alert-confirm';
+    options.buttons = {
+        '确定': {
+            events: {
+                click: function(){
+                    callback && callback();
+                    !manualClose && this.destroy();
+                }
+            },
+
+            className: 'ui3-alert-button-confirm'
+        },
+
+        '取消': {
+            events: {
+                click: function(){
+                    this.destroy();
+                }
+            },
+
+            className: 'ui3-alert-button-cancel'
+        }
+    };
+
+    return alert(content, options, callback, manualClose);
+});
 
 return Alert;
-
-return $.alert = {
-    alert: alert,
-
-    warn: function(content, callback, unclose, opt){
-        return this.alert('<div class="ui2-alert-warn">' + content + '</div>', callback, unclose, opt);
-    },
-
-    error: function(content, callback, unclose, opt){
-        return this.alert('<div class="ui2-alert-error">' + content + '</div>', callback, unclose, $.extend({
-            title: '错误'
-        }, opt || {}));
-    },
-
-    success: function(content, callback, unclose, opt){
-        return this.alert('<div class="ui2-alert-success">' + content + '</div>', callback, unclose, $.extend({
-            title: '操作成功'
-        }, opt || {}));
-    },
-    /**
-     * 同浏览器默认的confirm 
-     * content：显示内容
-     * callback：确认后执行的函数
-     * unclose：点击确认后不关闭
-     * 
-     * 当unclose为true时 可手动执行close或者destory方法关闭弹窗
-     */
-    confirm: function(content, callback, unclose, opt){
-        return new Dialog($.extend({
-            title: '提示',
-            width: 400,
-            content: '<div class="ui2-alert">' + content + '</div>',
-            autoOpen: true,
-            buttons: {
-                '确定': {
-                    events: {
-                        click: function(){
-                            callback();
-                            !unclose && this.destroy();
-                        }
-                    },
-
-                    className: 'ui2-alert-button-confirm'
-                },
-
-                '取消': {
-                    events: {
-                        click: function(){
-                            this.destroy();
-                        }
-                    },
-
-                    className: 'ui2-alert-button-cancel'
-                }
-            }
-        }, opt || {}));
-    }
-};
-
 });
