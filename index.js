@@ -8,7 +8,7 @@ if(typeof define == 'function' && define.amd){
         require('dialog')
     );
 }else{
-    window.jQuery.alert = factory(window.jQuery, window.jQuery.fn.dialog);
+    factory(window.jQuery, window.jQuery.fn.dialog);
 }
 })(function($, Dialog){
 function override(callback){
@@ -83,5 +83,5 @@ Alert.confirm = override(function(content, options, callback, manualClose){
     return alert(content, options, callback, manualClose);
 });
 
-return Alert;
+return $.alert = Alert;
 });
