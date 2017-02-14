@@ -32,7 +32,7 @@ function alert(content, options, callback, manualClose){
         options.className += ' ui3-alert-hast';
     }
 
-    return new Dialog($.extend({
+    var instance = new Dialog($.extend({
         content: '<i class="ui3-alert-icon"></i>' + content + (options.extra ? '<p class="ui3-alert-extra">' + options.extra + '</p>' : ''),
         width: 400,
         autoOpen: true,
@@ -40,10 +40,16 @@ function alert(content, options, callback, manualClose){
         buttons: {
             '确定': function(){
                 callback && callback();
-                !manualClose && this.destroy();
+                !manualClose && this.close();
             }
         }
     }, options));
+
+    instance.on('close', function(){
+        this.destroy();
+    });
+
+    return instance;
 }
 
 var Alert = override(alert);
@@ -62,7 +68,7 @@ Alert.confirm = override(function(content, options, callback, manualClose){
             events: {
                 click: function(){
                     callback && callback();
-                    !manualClose && this.destroy();
+                    !manualClose && this.close();
                 }
             },
 
@@ -72,7 +78,7 @@ Alert.confirm = override(function(content, options, callback, manualClose){
         '取消': {
             events: {
                 click: function(){
-                    this.destroy();
+                    this.close();
                 }
             },
 
