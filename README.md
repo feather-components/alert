@@ -1,12 +1,23 @@
 Alert组件
 =============================
 
+###使用
+
+Alert(content, [options/*额外参数，同dialog*/, ]callback, manualClose/*是否手动关闭*/)：同window.alert
+Alert.confirm(content[, options], callback, manualClose): 同window.confirm
+Alert.error()：失败
+Alert.success()：成功
+
 ###Options
 
-*   content: 显示内容
-*   callback：点击确认按钮后，执行的回调函数
-*   unclose：点击确认后，是否关闭，默认为false，即关闭
-*   opt: 同dialog组件
+* extra： 额外需要对大家讲的话
+
+```js
+$.alert('hello', {
+    extra: 'my name is jim green!',
+    title: 'nice to meet you!'
+})
+```
 
 ###Event 同dialog组件
 
@@ -15,7 +26,7 @@ Alert组件
 ###Example
 
 ```js
-var alert = Alert.alert('确定删除该微博么？', function(){
+var alert = Alert('确定删除该微博么？', function(){
     console.log('点击了确认按钮');
 }, true);
 
