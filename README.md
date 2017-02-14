@@ -4,8 +4,11 @@ Alert组件
 ###使用
 
 Alert(content, [options/*额外参数，同dialog*/, ]callback, manualClose/*是否手动关闭*/)：同window.alert
+
 Alert.confirm(content[, options], callback, manualClose): 同window.confirm
+
 Alert.error()：失败
+
 Alert.success()：成功
 
 ###Options
