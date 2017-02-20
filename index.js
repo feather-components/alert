@@ -8,6 +8,7 @@ if(typeof define == 'function' && define.amd){
         require('dialog')
     );
 }else{
+    console.log(window.jQuery.fn.dialog);
     factory(window.jQuery, window.jQuery.fn.dialog);
 }
 })(function($, Dialog){
@@ -61,6 +62,8 @@ $.each(['error', 'success'], function(i, type){
     });
 });
 
+console.log(Dialog.BUTTON_STYLES);
+
 Alert.confirm = override(function(content, options, callback, manualClose){
     options.className = 'ui3-alert-confirm';
     options.buttons = {
@@ -72,17 +75,11 @@ Alert.confirm = override(function(content, options, callback, manualClose){
                 }
             },
 
-            className: 'ui3-alert-button-confirm'
+            className: Dialog.BUTTON_STYLES.HOLLOW
         },
 
-        '取消': {
-            events: {
-                click: function(){
-                    this.close();
-                }
-            },
-
-            className: 'ui3-alert-button-cancel'
+        '取消': function(){
+            this.close();
         }
     };
 

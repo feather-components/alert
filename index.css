@@ -5,6 +5,14 @@
     line-height: 24px;
 }
 
+.ui3-alert .ui3-dialog-title{
+    margin-top: 50px;
+    height: auto;
+    text-align: center;
+    line-height: 22px;
+    border: 0px;
+}
+
 .ui3-alert-icon{
     width: 78px;
     height: 78px;
@@ -26,19 +34,4 @@
     font-size: 12px;
     line-height: 25px;
     margin: 9px 40px 0px 40px;
-}
-
-.ui3-alert .ui3-alert-button-confirm{
-    background: #fff;
-    color: #3E6BC5;
-}
-
-.ui3-alert .ui3-alert-button-confirm:hover{
-    background: #3E6BC5;
-    color: #fff;
-}
-
-.ui3-alert-hast .ui3-dialog-content{
-    padding-top: 20px;
-    padding-bottom: 20px;
 }
