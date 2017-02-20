@@ -5,6 +5,10 @@
     line-height: 24px;
 }
 
+.ui3-alert.ui3-dialog-not{
+    padding-top: 27px;
+}
+
 .ui3-alert .ui3-dialog-title{
     margin-top: 50px;
     height: auto;
