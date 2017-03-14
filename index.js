@@ -62,8 +62,6 @@ $.each(['error', 'success'], function(i, type){
     });
 });
 
-console.log(Dialog.BUTTON_STYLES);
-
 Alert.confirm = override(function(content, options, callback, manualClose){
     options.className = 'ui3-alert-confirm';
     options.buttons = {
