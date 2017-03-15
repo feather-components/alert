@@ -8,7 +8,6 @@ if(typeof define == 'function' && define.amd){
         require('dialog')
     );
 }else{
-    console.log(window.jQuery.fn.dialog);
     factory(window.jQuery, window.jQuery.fn.dialog);
 }
 })(function($, Dialog){
